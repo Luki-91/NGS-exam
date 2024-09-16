@@ -27,7 +27,7 @@ process downloadGenomes {
 process combineFasta {
 	publishDir params.out, mode: "copy", overwrite: true
 	input:
-		path "*.fasta"
+		path file
 	output:
 		path "${params.accession}_combined.fasta"
 	"""
@@ -62,7 +62,7 @@ process trimAL {
 workflow {
 	download_channel = downloadAccession(Channel.from(params.accession)) 
 	download_genome_channel = downloadGenomes()
-	combining_channel = download_channel.combine(download_genome_channel)
+	combining_channel = download_channel.concat(download_genome_channel).collect()
 	making_Fasta = combineFasta(combining_channel)
 	alignment_channel = mafft(making_Fasta)
 	trimal_channel = trimAL(alignment_channel)
