@@ -18,9 +18,9 @@ process downloadAccession {
 process downloadCombined {
 	storeDir params.storeDir
 	output:
-		path "combined.fasta"
+		path "${params.accession}_combined.fasta"
 	"""
-	wget https://gitlab.com/dabrowskiw/cq-examples/-/raw/master/data/hepatitis_combined.fasta?inline=false -O combined.fasta
+	wget https://gitlab.com/dabrowskiw/cq-examples/-/raw/master/data/hepatitis_combined.fasta?inline=false -O ${params.accession}_combined.fasta
 	"""
 }
 
@@ -29,9 +29,9 @@ process combineFasta {
 	input:
 		path "*.fasta"
 	output:
-		path "final.fasta"
+		path "${params.accession}_final.fasta"
 	"""
-	cat *.fasta > final.fasta
+	cat *.fasta > ${params.accession}_final.fasta
 	"""
 }
 
@@ -41,9 +41,9 @@ process mafft {
 	input:
 		path infile
 	output:
-		path "alignment.fasta"
+		path "${params.accession}_alignment.fasta"
 	"""
-	mafft-linsi $infile >  alignment.fasta
+	mafft-linsi $infile >  ${params.accession}_alignment.fasta
 	"""
 }
 
