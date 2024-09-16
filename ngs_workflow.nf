@@ -18,9 +18,9 @@ process downloadAccession {
 process downloadCombined {
 	storeDir params.storeDir
 	output:
-		path "${params.accession}_combined.fasta"
+		path "combined.fasta"
 	"""
-	wget https://gitlab.com/dabrowskiw/cq-examples/-/raw/master/data/hepatitis_combined.fasta?inline=false -O ${params.accession}_combined.fasta
+	wget https://gitlab.com/dabrowskiw/cq-examples/-/raw/master/data/hepatitis_combined.fasta?inline=false -O combined.fasta
 	"""
 }
 
