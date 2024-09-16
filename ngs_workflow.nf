@@ -25,7 +25,6 @@ process downloadGenomes {
 }
 
 process combineFasta {
-	publishDir params.out, mode: "copy", overwrite: true
 	input:
 		path file
 	output:
@@ -36,7 +35,6 @@ process combineFasta {
 }
 
 process mafft {
-	publishDir params.out, mode: "copy", overwrite: true
 	container "https://depot.galaxyproject.org/singularity/mafft%3A7.525--h031d066_1"
 	input:
 		path infile
