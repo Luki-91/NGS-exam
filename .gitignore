@@ -1,3 +1,4 @@
 *.pdf
 .next*
 *.html
+*.fasta
