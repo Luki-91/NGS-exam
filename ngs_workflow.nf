@@ -15,12 +15,12 @@ process downloadAccession {
 	"""
 }
 
-process downloadReference {
+process downloadGenomes {
 	storeDir params.storeDir
 	output:
-		path "reference.fasta"
+		path "genomes.fasta"
 	"""
-	wget https://gitlab.com/dabrowskiw/cq-examples/-/raw/master/data/hepatitis_combined.fasta?inline=false -O reference.fasta
+	wget https://gitlab.com/dabrowskiw/cq-examples/-/raw/master/data/hepatitis_combined.fasta?inline=false -O genomes.fasta
 	"""
 }
 
@@ -61,8 +61,8 @@ process trimAL {
 
 workflow {
 	download_channel = downloadAccession(Channel.from(params.accession)) 
-	download_reference_channel = downloadReference()
-	combining_channel = download_channel.combine(download_reference_channel)
+	download_genome_channel = downloadGenomes()
+	combining_channel = download_channel.combine(download_genome_channel)
 	making_Fasta = combineFasta(combining_channel)
 	alignment_channel = mafft(making_Fasta)
 	trimal_channel = trimAL(alignment_channel)
