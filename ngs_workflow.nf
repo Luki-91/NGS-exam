@@ -29,9 +29,9 @@ process combineFasta {
 	input:
 		path "*.fasta"
 	output:
-		path "${params.accession}_final.fasta"
+		path "${params.accession}_combined.fasta"
 	"""
-	cat *.fasta > ${params.accession}_final.fasta
+	cat *.fasta > ${params.accession}_combined.fasta
 	"""
 }
 
